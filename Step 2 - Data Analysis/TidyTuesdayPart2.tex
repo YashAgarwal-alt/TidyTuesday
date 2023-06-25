@@ -1,0 +1,955 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={STA258 Spotify Songs Data Analysis - Group 10},
+  pdfauthor={Yash Agarwal, Diaa Bakir, Angelo Gener, Steven Hua, Muhammad Iqbal},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+
+\title{STA258 Spotify Songs Data Analysis - Group 10}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{Tidy Tuesday Project - Spotify}
+\author{Yash Agarwal, Diaa Bakir, Angelo Gener, Steven Hua, Muhammad Iqbal}
+\date{}
+
+\begin{document}
+\maketitle
+
+\hypertarget{part-1-variable-exploration}{%
+\subsection{Part 1: Variable
+Exploration}\label{part-1-variable-exploration}}
+
+\hypertarget{variable-1-track-album-release-date}{%
+\subsubsection{Variable 1: Track Album Release
+Date}\label{variable-1-track-album-release-date}}
+
+Generating the valid information, the track album variable is given as a
+list of characters and integers, we must transform it into only years in
+order to generate reliable data.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{track_album_release_date <-}\StringTok{ }\NormalTok{spotify_songs}\OperatorTok{$}\NormalTok{track_album_release_date}
+\NormalTok{track_album_release_date_new <-}\StringTok{ }\NormalTok{stringr}\OperatorTok{::}\KeywordTok{str_extract}\NormalTok{(track_album_release_date, }\StringTok{"^.\{4\}"}\NormalTok{)}
+\NormalTok{track_album_release_date_year <-}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{(track_album_release_date_new)}
+\end{Highlighting}
+\end{Shaded}
+
+Now all the information in the list is an integer, we can use the
+library mosaic to determine an accurate summary
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{favstats}\NormalTok{(track_album_release_date_year)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   min   Q1 median   Q3  max     mean       sd     n missing
+##  1957 2008   2016 2019 2020 2011.137 11.41745 32833       0
+\end{verbatim}
+
+\includegraphics{TidyTuesdayPart2_files/figure-latex/unnamed-chunk-4-1.pdf}
+
+This variable is regarding the year that albums were released on. The
+mean is 2011.137 for this data set with a standard deviation of
+11.41745. This means that the average release year for the albums in the
+data set is 2011 and there is a variance of roughly 11 years. The oldest
+release year is 1957 and the most recent album release year is 2020. The
+IQR is within 2008 and 2019, this is due to the median being 2016 which
+is the middle value. Anything after 2035.5 and before 1991.5 is
+considered an outlier, there is no upper whisker outliers but there is a
+number of lower bound outliers. This implies that the majority of the
+data used is recent albums and older songs are actually considered
+outliers according to the IQR range which is illustrated in the graph.
+As a result, we can imply that this is not normal, this makes sense as
+we know spotify is a newer app and that it is updated recently.
+
+\hypertarget{variable-2-song-popularity}{%
+\subsubsection{Variable 2: Song
+Popularity}\label{variable-2-song-popularity}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{track_popularity <-}\StringTok{ }\NormalTok{spotify_songs}\OperatorTok{$}\NormalTok{track_popularity}
+\KeywordTok{favstats}\NormalTok{(track_popularity)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  min Q1 median Q3 max     mean       sd     n missing
+##    0 24     45 62 100 42.47708 24.98407 32833       0
+\end{verbatim}
+
+\includegraphics{TidyTuesdayPart2_files/figure-latex/unnamed-chunk-6-1.pdf}
+The second variable deals with track popularity, every song in the
+dataset has been assigned a value from 0 to 100 as an indicator of how
+popular it is. The average track popularity is 42.47708 while the
+standard deviation is 24.98407. This indicates that the dataset is about
+normal but with a high standard deviation value and thus a high
+variance. The lowest score which is also the most common score, is 0
+while there is a few tracks that have received the highest score of 100.
+The IQR is within 24 and 62 while the median is 45 which is close to the
+mean value. A song cannot be considered an outlier as the IQR range is
+38, the value of the outlier range 57 added or removed from the
+upper/lower bounds which cannot be given as it does not fall within the
+range provided. This means that despite having higher or lower cases,
+the dataset implies that all the values are crucial to making up the
+bell shaped curve present which is applicable to real life. Many songs
+cannot be superhits, usually songs are admired by the artist's fans and
+in rare cases listeners outside the intended audience however the amount
+of songs that are not popular vastly outweigh the number of incredibly
+popular songs.
+
+\hypertarget{variable-3-valence}{%
+\subsubsection{Variable 3: Valence}\label{variable-3-valence}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{valence <-}\StringTok{ }\NormalTok{spotify_songs}\OperatorTok{$}\NormalTok{valence}
+\KeywordTok{favstats}\NormalTok{(valence)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  min    Q1 median    Q3   max     mean       sd     n missing
+##    0 0.331  0.512 0.693 0.991 0.510561 0.233146 32833       0
+\end{verbatim}
+
+\includegraphics{TidyTuesdayPart2_files/figure-latex/unnamed-chunk-8-1.pdf}
+\includegraphics{TidyTuesdayPart2_files/figure-latex/unnamed-chunk-8-2.pdf}
+
+The valence variable refers to the musical mood or positivity present in
+a song, songs range from 0.0 to 1.0. A high valence score track is more
+happy in cheerful while a low valence score track is depressing and
+gloomy. The median for this data set is 0.510561 while there is a
+standard deviation of 0.233146. The highest score a track recieved was
+0.991 and the lowest was 0.331. There is a stark contrast between the
+highest and lowest and the hypothetical highest and lowest score, there
+were no songs that radiated positivity and definitely no songs that was
+entirely negative. This matches our thinking as no one would listen to a
+song that is overly positive or overly negative. This is reflected by
+the IQR bound values and the median which are 0.69, 0.331 and 0.512
+respectively. This curve is incredibly normal and this is shown through
+the graphs as well, the boxplot is centered in y axis and the histogram
+is bell curved. This is an accurate representation as music is a very
+powerful medium that allow for both feelings of hope and negativity in
+order to convey the true and complex meanings that the artists intend.
+
+\hypertarget{variable-4-tempo}{%
+\subsubsection{Variable 4: Tempo}\label{variable-4-tempo}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tempo <-}\StringTok{ }\NormalTok{spotify_songs}\OperatorTok{$}\NormalTok{tempo}
+\KeywordTok{favstats}\NormalTok{(tempo)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  min    Q1  median      Q3    max     mean       sd     n missing
+##    0 99.96 121.984 133.918 239.44 120.8811 26.90362 32833       0
+\end{verbatim}
+
+\includegraphics{TidyTuesdayPart2_files/figure-latex/unnamed-chunk-10-1.pdf}
+
+Tempo is the overall beats per minute within a track. It is the speed or
+pace in a song and it is calculated from the average beat duration. The
+data suggests the tempo mean 120.8811 and a standard deviation of
+26.90362. This is quite a fast beat pace but modern music is known as
+being faster paced through new styles of old genres coming into the
+mainstream media such as EDM, hip hop, pop and rap. This data uses all
+of those genres and analyzes them which is a reason for the median being
+similar to the mean at 121.984. The lower bound is 99.96 and the upper
+bound is 133.918. There are a few outliers that is lower than under
+49.023 and higher than 184.855. The reason for the outliers being
+present in this variable is because of the wide array of bpm songs that
+are created by different genres, for example, a reggae song would have a
+slower bpm than an EDM song and this is expected as it is not confined
+to a score value and is a freeflowing variable that depends on the
+artists. The data also suggests this by being very close to a normal
+distribution and loosely straying from it.
+
+\hypertarget{variable-5-danceability}{%
+\subsubsection{Variable 5: Danceability}\label{variable-5-danceability}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{danceability <-}\StringTok{ }\NormalTok{spotify_songs}\OperatorTok{$}\NormalTok{danceability}
+\KeywordTok{favstats}\NormalTok{(danceability)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  min    Q1 median    Q3   max      mean        sd     n missing
+##    0 0.563  0.672 0.761 0.983 0.6548495 0.1450853 32833       0
+\end{verbatim}
+
+\includegraphics{TidyTuesdayPart2_files/figure-latex/unnamed-chunk-12-1.pdf}
+
+Danceability is a rating from 0.0 to 1.0 on how danceable a song is. A
+high score indicates that people are more likely to dance to it whereas
+songs with a low score means that there is a low chance someone will
+dance to it. The mean for this variable is 0.6548495 with a standard
+deviation of 0.1450853. The lowest score a song recieved was 0 and the
+highest was 0.983. The IQR ranges from 0.563 to 0.761 with a median of
+0.672. There can be no upper outliers as it would need a score of 1.058
+which is not possible, however, lower outliers exist and a track with a
+score of 0.267 or lower is considered an outlier. This matches our real
+life expectation as most songs are enjoyable and encourages a positive
+mood change, however there are certain songs such as purely instrumental
+songs that do not make you want to dance. Additionally, most recent
+songs are often catchy and thus are more danceable which explains the
+slight skewness in the graph.
+
+\hypertarget{variable-6-liveliness}{%
+\subsubsection{Variable 6: Liveliness}\label{variable-6-liveliness}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{liveliness <-}\StringTok{ }\NormalTok{spotify_songs}\OperatorTok{$}\NormalTok{liveness}
+\KeywordTok{favstats}\NormalTok{(liveliness)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  min     Q1 median    Q3   max      mean        sd     n missing
+##    0 0.0927  0.127 0.248 0.996 0.1901762 0.1543173 32833       0
+\end{verbatim}
+
+\includegraphics{TidyTuesdayPart2_files/figure-latex/unnamed-chunk-14-1.pdf}
+
+Liveliness is an interesting category that looks at the presence of an
+audience within a track. A higher liveliness value indicates a higher
+probability of a crowd and the song being live and a low score indicates
+that the song was not performed live, a song with a 0.8 score or higher
+indicates an extremely high likelihood that it was performed live. The
+mean for this variable is 0.1901762 while there is a standard deviation
+of 0.1543173. The lowest score a track received was a 0 while the
+highest was 0.996 so the range varies drastically. The Interquartile
+Range spans from 0.0927 to 0.248 with a median of 0.127, this is
+expected as the dataset is extremely right skewed. This indicates most
+of the songs were not performed live but were performed in a studio,
+usually this is standard practice since most songs are sung and altered
+in studios prior to release and then sung live in person during tours or
+concerts. The boxplot also indicates this as there are many upper bound
+outliers with scores higher than a 0.48095. The boxplot graphic also
+matches this as the median is quite low within the IQR range which also
+implies the dataset is right skewed.
+
+\hypertarget{variable-7-instrumentalness}{%
+\subsubsection{Variable 7:
+Instrumentalness}\label{variable-7-instrumentalness}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{instrumentalness <-}\StringTok{ }\NormalTok{spotify_songs}\OperatorTok{$}\NormalTok{instrumentalness}
+\KeywordTok{favstats}\NormalTok{(instrumentalness)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  min Q1   median      Q3   max       mean        sd     n missing
+##    0  0 1.61e-05 0.00483 0.994 0.08474716 0.2242301 32833       0
+\end{verbatim}
+
+\includegraphics{TidyTuesdayPart2_files/figure-latex/unnamed-chunk-16-1.pdf}
+
+Instrumentalness is a score that reflects the number of vocals, it only
+counts words that are rapped or spoken and does not count adlibs such as
+``ooh'' and ``ah''. The higher the score, the higher the probability
+that the song contains no words or vocals. For songs with a score of
+over 0.5, are tracks that are meant to represent instrumental tracks.
+0.08474716 was the mean for this data and the standard deviation was
+0.2242301. The highest and lowest scores were 0 and 0.994 respectively
+which means that the range of the dataset is fairly spread out.
+Something interesting that occurs is that the lower bound for the IQR
+starts at 0 and the upper bound ends at 0.00483 which is an extremely
+low range. This is expected but a lot of the data leaning so heavily
+against instrumentalness implies that most songs contain a high about of
+vocals as most people do not like to listen to instrumental music often.
+Anything above a score of 0.012075 is considered highly instrumental and
+an outlier as it is unnatural. For songs in the dataset to have such a
+low instrumental score indicates that the data is heavily right skewed
+as it favors more vocal tracks. This can be within the graph, although
+there is a high number of instrumental tracks it is because of the sheer
+size of the data set containing 32833 songs. The vast majority of tracks
+range very close to if not a 0 whereas the the number of tracks that
+have a high instrumental score is considerably less with them all having
+under an estimated 1000 tracks at each score.
+
+\hypertarget{part-2-exploring-relationships-amongst-chosen-variables}{%
+\subsection{Part 2: Exploring relationships amongst chosen
+variables}\label{part-2-exploring-relationships-amongst-chosen-variables}}
+
+\hypertarget{year-of-album-release-vs-popularity-score}{%
+\subsubsection{Year of Album Release vs Popularity
+Score}\label{year-of-album-release-vs-popularity-score}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\KeywordTok{boxplot}\NormalTok{(track_album_release_date_year, }\DataTypeTok{main =} \StringTok{"Track Album Release Year"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"Track Album Release Year"}\NormalTok{, }\DataTypeTok{col=}\StringTok{"red"}\NormalTok{)}
+\KeywordTok{boxplot}\NormalTok{(track_popularity, }\DataTypeTok{main =} \StringTok{"Track Popularity"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"Popularity Score"}\NormalTok{, }\DataTypeTok{col=}\StringTok{"light blue"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{TidyTuesdayPart2_files/figure-latex/unnamed-chunk-17-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{track_album_release_date_year_sorted <-}\StringTok{ }\KeywordTok{sort}\NormalTok{(track_album_release_date_year)}
+\KeywordTok{ggplot}\NormalTok{(spotify_songs, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{track_album_release_date_year_sorted, }
+\NormalTok{                          track_popularity), }\DataTypeTok{y=}\NormalTok{track_popularity) }\OperatorTok{+}\StringTok{  }
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.text.x =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{angle =} \DecValTok{90}\NormalTok{, }\DataTypeTok{hjust =} \DecValTok{1}\NormalTok{))}\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{col =} \StringTok{"blue"}\NormalTok{)}\OperatorTok{+}
+\StringTok{  }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Year of Album Release vs Popularity Score"}\NormalTok{)}\OperatorTok{+}
+\StringTok{  }\KeywordTok{xlab}\NormalTok{(}\StringTok{"Album Release Year"}\NormalTok{)}\OperatorTok{+}
+\StringTok{  }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Popularity Score"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{TidyTuesdayPart2_files/figure-latex/unnamed-chunk-18-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(spotify_songs, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{y=}\NormalTok{track_popularity, }
+                          \DataTypeTok{x=}\NormalTok{track_album_release_date_year)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_bar}\NormalTok{(}\DataTypeTok{position=}\StringTok{"dodge"}\NormalTok{, }\DataTypeTok{stat=}\StringTok{"identity"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.text =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{angle=}\DecValTok{90}\NormalTok{, }\DataTypeTok{hjust=}\DecValTok{1}\NormalTok{)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Year of Album Release vs Popularity Score"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{xlab}\NormalTok{(}\StringTok{"Album Release Year"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Popularity Score"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{TidyTuesdayPart2_files/figure-latex/unnamed-chunk-19-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{favstats}\NormalTok{(track_album_release_date_year)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   min   Q1 median   Q3  max     mean       sd     n missing
+##  1957 2008   2016 2019 2020 2011.137 11.41745 32833       0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{favstats}\NormalTok{(track_popularity)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  min Q1 median Q3 max     mean       sd     n missing
+##    0 24     45 62 100 42.47708 24.98407 32833       0
+\end{verbatim}
+
+There appears to be a strong positive relationship between the track
+album release year and the popularity score of those tracks. As many
+songs have been released in recent years, it did correlate to current
+songs becoming more popular. The chance of the songs becoming popular as
+time progresses is linear, popularity scores for tracks do increase as
+the years progress. The covariance between the two variables is
+17.32757, it suggests that there is a strong positive relationship
+present. As the years increase, there are more and more albums that
+receive higher popularity scores. The histogram suggests that any
+release before 1991.5 is an outlier, it seems as if more scores have
+recieved a wide variety of scores as indicated by the mean for track
+popularity. However it seems as if the peaks and concentrations are
+higher and more dense within the recent years, this is also demonstrated
+by the bar graph. This relationship suggests that there is a greater
+likely hood of an album that it will have a song that is popular. An
+important factor to consider is that spotify itself is fairly new and
+has features that encourage its users to listen to newer songs through
+features such as ``New Releases'', ``Made Just For You'' \& ``Discover
+Weekly'' which might influence the a track's popularity score.
+
+\hypertarget{relationship-between-tempo-danceability}{%
+\subsubsection{Relationship between Tempo \&
+Danceability}\label{relationship-between-tempo-danceability}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(spotify_songs, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{tempo, }
+\NormalTok{                          danceability), }\DataTypeTok{y=}\NormalTok{danceability) }\OperatorTok{+}\StringTok{  }
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.text.x =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{angle =} \DecValTok{90}\NormalTok{, }\DataTypeTok{hjust =} \DecValTok{1}\NormalTok{))}\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{col =} \StringTok{"orange"}\NormalTok{)}\OperatorTok{+}
+\StringTok{  }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Tempo vs Danceability"}\NormalTok{)}\OperatorTok{+}
+\StringTok{  }\KeywordTok{xlab}\NormalTok{(}\StringTok{"Tempo"}\NormalTok{)}\OperatorTok{+}
+\StringTok{  }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Danceability Score"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{TidyTuesdayPart2_files/figure-latex/unnamed-chunk-21-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{favstats}\NormalTok{(tempo)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  min    Q1  median      Q3    max     mean       sd     n missing
+##    0 99.96 121.984 133.918 239.44 120.8811 26.90362 32833       0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{favstats}\NormalTok{(danceability)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  min    Q1 median    Q3   max      mean        sd     n missing
+##    0 0.563  0.672 0.761 0.983 0.6548495 0.1450853 32833       0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{cov}\NormalTok{(tempo, danceability)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -0.7185403
+\end{verbatim}
+
+As the covariance is -0.7185403, it is evident that the relationship
+between the tempo and the danceability score have a moderate negative
+correlation. Additionally, the graph also indicates that there is a
+negative relationship as when tempo increases to higher values, the
+danceability scores decrease. In theory, this makes sense as songs with
+a very high tempo, generally falling into music genres such as hyper-pop
+and dubstep, are not commonly seen aS songs that individuals in the
+general population dance to due to its overwhelming fast
+pace.Furthermore,the graph indicates that songs with a tempo that is
+closer to the mean of 120 bpm, and median of 121 bpm, have the highest
+danceability scores which generally fall into music genres such as
+hip-hop and pop. These music genres seem to be ones that are danced to
+especially with the emergence of dance trends in popular social media
+platforms such as Tikok and instagram in today's culture. This
+relationship suggests that generally as the tempo increases, the
+danceability of a song will decrease.
+
+\hypertarget{relationship-between-tempo-and-valence}{%
+\subsubsection{Relationship between Tempo and
+Valence}\label{relationship-between-tempo-and-valence}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(spotify_songs, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{valence,}
+\NormalTok{                          tempo), }\DataTypeTok{y=}\NormalTok{tempo) }\OperatorTok{+}\StringTok{  }
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.text.x =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{angle =} \DecValTok{90}\NormalTok{, }\DataTypeTok{hjust =} \DecValTok{1}\NormalTok{))}\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{col =} \StringTok{"aquamarine"}\NormalTok{)}\OperatorTok{+}
+\StringTok{  }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Tempo vs Valence"}\NormalTok{)}\OperatorTok{+}
+\StringTok{  }\KeywordTok{xlab}\NormalTok{(}\StringTok{"Valence Score"}\NormalTok{)}\OperatorTok{+}
+\StringTok{  }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Tempo"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{TidyTuesdayPart2_files/figure-latex/unnamed-chunk-23-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{favstats}\NormalTok{(tempo)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  min    Q1  median      Q3    max     mean       sd     n missing
+##    0 99.96 121.984 133.918 239.44 120.8811 26.90362 32833       0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{favstats}\NormalTok{(valence)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  min    Q1 median    Q3   max     mean       sd     n missing
+##    0 0.331  0.512 0.693 0.991 0.510561 0.233146 32833       0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{cov}\NormalTok{(tempo, valence)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -0.1614042
+\end{verbatim}
+
+As the covariance is -0.1614042, it is evident that the relationship
+between the tempo and valence score have a weak correlation or no
+correlation. Additionally, the graph also indicates that there seems to
+be a uniform distribution between the two variables. As the valence
+score represents the musical mood or positivity present in a song, the
+data can indicate that the tempo of a song does not generally reflect
+the musical mood or positivity that a song produces.
+
+\hypertarget{relationship-between-valence-danceability}{%
+\subsubsection{Relationship between Valence \&
+Danceability}\label{relationship-between-valence-danceability}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(spotify_songs, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{y=}\NormalTok{valence, }\DataTypeTok{x=}\NormalTok{danceability)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_bar}\NormalTok{(}\DataTypeTok{position=}\StringTok{"dodge"}\NormalTok{, }\DataTypeTok{stat=}\StringTok{"identity"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.text =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{angle=}\DecValTok{90}\NormalTok{, }\DataTypeTok{hjust=}\DecValTok{1}\NormalTok{)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Valence vs Danceability"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{xlab}\NormalTok{(}\StringTok{"Danceability Score"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Valence Score"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{TidyTuesdayPart2_files/figure-latex/unnamed-chunk-25-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow=}\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\KeywordTok{plot}\NormalTok{(valence, danceability)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{TidyTuesdayPart2_files/figure-latex/unnamed-chunk-26-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{favstats}\NormalTok{(valence)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  min    Q1 median    Q3   max     mean       sd     n missing
+##    0 0.331  0.512 0.693 0.991 0.510561 0.233146 32833       0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{favstats}\NormalTok{(danceability)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  min    Q1 median    Q3   max      mean        sd     n missing
+##    0 0.563  0.672 0.761 0.983 0.6548495 0.1450853 32833       0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{cov}\NormalTok{(valence, danceability)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.0111803
+\end{verbatim}
+
+We can see from the covariance score of 0.0111803, that the relationship
+between the valence score and the danceability score have a positive
+correlation. The means for the two variables are 0.51 and 0.65
+respectively and the sd consists of roughly 0.233 and 0.15 so they both
+can fall into the same mean range. Additionally, the graph also
+indicates that there is a positive relationship as higher danceability
+scores indicate higher valence scores. This allows us to conclude that
+the relationship between these two variables is left skewed. This
+indicates that if a song is more positive and has a high valence value,
+it correlates to the danceability score that it has. This matches our
+hypothesis as we believed that positive songs will make make people want
+to dance to the track more than their wish to dance to a negative song.
+The positive correlation is expected and the bar graph shows high
+concentration for scores when the danceability and valence score are
+over there mean.
+
+\hypertarget{relationship-between-liveliness-instrumentalness}{%
+\subsubsection{Relationship between Liveliness \&
+Instrumentalness}\label{relationship-between-liveliness-instrumentalness}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(spotify_songs, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{liveliness, instrumentalness), }\DataTypeTok{y=}\NormalTok{instrumentalness) }\OperatorTok{+}\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.text.x =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{angle =} \DecValTok{90}\NormalTok{, }\DataTypeTok{hjust =} \DecValTok{1}\NormalTok{))}\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{col =} \StringTok{"blue"}\NormalTok{)}\OperatorTok{+}
+\StringTok{  }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Liveliness Score vs Instrumentalness Score"}\NormalTok{)}\OperatorTok{+}
+\StringTok{  }\KeywordTok{xlab}\NormalTok{(}\StringTok{"Liveliness Score"}\NormalTok{)}\OperatorTok{+}
+\StringTok{  }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Instrumentalness Score"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{TidyTuesdayPart2_files/figure-latex/unnamed-chunk-28-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{favstats}\NormalTok{(liveliness)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  min     Q1 median    Q3   max      mean        sd     n missing
+##    0 0.0927  0.127 0.248 0.996 0.1901762 0.1543173 32833       0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{favstats}\NormalTok{(instrumentalness)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  min Q1   median      Q3   max       mean        sd     n missing
+##    0  0 1.61e-05 0.00483 0.994 0.08474716 0.2242301 32833       0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{cov}\NormalTok{(liveliness, instrumentalness)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -0.0001905579
+\end{verbatim}
+
+As we can see from the correlation value it is a negative relation value
+exists with a score of -0.0001905579. There is a negative correlation,
+whenever songs possess a low score of liveliness, they are typically not
+very instrumental and largely vocal. This shows a negative correlation
+as there is an extremely high number of cases with a low liveliness
+score with a low instrumentalness score. Additionally, there are cases
+with a low liveliness score but with varying instrumentalness scores
+which shows that tracks are almost always written without the presence
+of an audience. Interestingly, there is many discrete cases of tracks
+with not only high instrumental scores but also high liveliness scores.
+This is an indication of tracks typically having extremely low
+instrumental and liveliness scores or having high probability of being
+performed live and containing minimal vocals. This revelation lines up
+with what was expected in our hypothesis, lower scores of
+instrumentalness indicates that the track has a high chance of
+possessing a low liveliness score. The total graph is right skewed as
+the majority of the dataset has its information on the left side of the
+visual with minimal amounts of scattered data across the rest of the
+range.
+
+\hypertarget{part-3-confidence-intervals-estimations}{%
+\subsection{Part 3: Confidence Intervals
+Estimations}\label{part-3-confidence-intervals-estimations}}
+
+\hypertarget{one-population-mean---tempo}{%
+\subsubsection{One Population Mean -
+Tempo}\label{one-population-mean---tempo}}
+
+Tempo is used in order to calculate the population mean with a 95\%
+confidence interval. This is done so as it is a numerical value and it
+makes more sense in order to calculate either the mean or variance for
+this variable. In this case, the mean was chosen. This was acquired by
+getting the mean, standard deviation and the number of data entries in
+the tempo variable. Standard Error was calculated by dividing the
+standard deviation by the square root of n.~A Z score was calculated by
+using the 95\% confidence interval statistics. Margin of Error was
+calculated by multiplying the z score by standard error. Finally the
+bounds were calculated by adding and subtracting the margin of error
+from the mean.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tempo_mean <-}\StringTok{ }\KeywordTok{mean}\NormalTok{(tempo)}
+\NormalTok{tempo_sd <-}\StringTok{ }\KeywordTok{sd}\NormalTok{(tempo)}
+\NormalTok{tempo_n <-}\StringTok{ }\KeywordTok{length}\NormalTok{(tempo)}
+\NormalTok{tempo_SE <-}\StringTok{ }\NormalTok{tempo_sd}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(tempo_n)}
+\NormalTok{tempo_zscore <-}\StringTok{ }\KeywordTok{qnorm}\NormalTok{(}\FloatTok{0.975}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+
+\NormalTok{tempo_MOE <-}\StringTok{ }\NormalTok{tempo_zscore }\OperatorTok{*}\StringTok{ }\NormalTok{tempo_SE}
+
+\NormalTok{tempo_upper_bound <-}\StringTok{ }\NormalTok{tempo_mean }\OperatorTok{+}\StringTok{ }\NormalTok{tempo_MOE}
+\NormalTok{tempo_lower_bound <-}\StringTok{ }\NormalTok{tempo_mean }\OperatorTok{-}\StringTok{ }\NormalTok{tempo_MOE}
+
+\NormalTok{tempo_CI_Interval <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(tempo_lower_bound, tempo_upper_bound)}
+\NormalTok{tempo_CI_Interval}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   tempo_lower_bound tempo_upper_bound
+## 1          120.5901          121.1721
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tempo_test <-}\StringTok{ }\KeywordTok{mean}\NormalTok{(spotify_songs}\OperatorTok{$}\NormalTok{tempo)}
+\NormalTok{tempo_test}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 120.8811
+\end{verbatim}
+
+We are 95\% confident that the true mean is in between the lower bound
+120.5901 and the upper bound 121.1721. We know this is true by by
+examining the mean itself which is 120.8811. Thus we can conclude that
+this confidence interval was accurate and yielded the right result.
+
+\hypertarget{one-population-variance---track-popularity}{%
+\subsubsection{One Population Variance - Track
+Popularity}\label{one-population-variance---track-popularity}}
+
+In order to calculate the population variance through a 95\% confidence
+interval, you need the the values of n and the standard deviation of the
+dataset. From this, you can obtain the values of the degrees of freedom,
+s\^{}2, and the upper and lower confidence levels. By using a chi
+squared distribution, you can obtain the lower and upper chi score.
+After calculating that the upper and lower bounds can be calculated,
+those bounds must then be square rooted in order to find the confidence
+interval of the standard deviation.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{popularity_n <-}\StringTok{ }\KeywordTok{length}\NormalTok{(track_popularity)}
+\NormalTok{popularity_df <-}\StringTok{ }\NormalTok{popularity_n }\OperatorTok{-}\StringTok{ }\DecValTok{1}
+\NormalTok{popularity_s =}\StringTok{ }\KeywordTok{sd}\NormalTok{(track_popularity)}
+\NormalTok{popularity_s_squared =}\StringTok{ }\NormalTok{popularity_s}\OperatorTok{^}\DecValTok{2} 
+\NormalTok{popularity_upper_conf_level <-}\StringTok{ }\FloatTok{0.975}
+\NormalTok{popularity_lower_conf_level <-}\StringTok{ }\FloatTok{0.025}
+
+\CommentTok{# chi squares}
+\NormalTok{popularity_lower_chi_score =}\StringTok{ }\KeywordTok{qchisq}\NormalTok{(popularity_lower_conf_level, }
+\NormalTok{                                    popularity_df, }\DataTypeTok{lower.tail =} \OtherTok{FALSE}\NormalTok{)}
+\NormalTok{popularity_upper_chi_score =}\StringTok{ }\KeywordTok{qchisq}\NormalTok{(popularity_upper_conf_level, }
+\NormalTok{                                    popularity_df, }\DataTypeTok{lower.tail =} \OtherTok{FALSE}\NormalTok{)}
+
+\NormalTok{popularity_lower_bound =}\StringTok{ }\NormalTok{((popularity_n }\OperatorTok{-}\StringTok{ }\DecValTok{1}\NormalTok{)}\OperatorTok{*}\NormalTok{popularity_s_squared)}\OperatorTok{/}
+\StringTok{  }\NormalTok{popularity_lower_chi_score}
+\NormalTok{popularity_upper_bound =}\StringTok{ }\NormalTok{((popularity_n }\OperatorTok{-}\StringTok{ }\DecValTok{1}\NormalTok{)}\OperatorTok{*}\NormalTok{popularity_s_squared)}\OperatorTok{/}
+\StringTok{  }\NormalTok{popularity_upper_chi_score}
+
+\NormalTok{popularity_standard_lower_bound =}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(popularity_lower_bound)}
+\NormalTok{popularity_standard_upper_bound =}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(popularity_upper_bound)}
+
+\NormalTok{popularity_CI =}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(popularity_standard_lower_bound, }
+\NormalTok{                           popularity_upper_bound)}
+\NormalTok{popularity_CI}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   popularity_standard_lower_bound popularity_upper_bound
+## 1                        24.79444               633.8638
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{popularity_test <-}\StringTok{ }\KeywordTok{mean}\NormalTok{(spotify_songs}\OperatorTok{$}\NormalTok{track_popularity)}
+\NormalTok{popularity_test}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 42.47708
+\end{verbatim}
+
+We can be 95\% confident that the true standard deviation of the
+popularity score falls between the lower bound 24.79444 and the upper
+bound 633.8638. We can confirm that this is true because the mean is
+42.47708.
+
+\hypertarget{difference-between-two-means---instrumentalness-liveliness}{%
+\subsubsection{Difference Between Two Means - Instrumentalness \&
+Liveliness}\label{difference-between-two-means---instrumentalness-liveliness}}
+
+For this confidence interval, let instrumentalness be group 1 and let
+liveliness be group 2. In order to arrive to the conclusion, we must get
+the variables for n, sd and mean for both groups. After this the z score
+must be got through the percent confidence interval. The formula to get
+the upper bounds and lower bounds is then used in order to generate the
+mean difference confidence interval bounds.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{instrumental_n =}\StringTok{ }\KeywordTok{length}\NormalTok{(instrumentalness)}
+\NormalTok{instrumental_sd =}\StringTok{ }\KeywordTok{sd}\NormalTok{(instrumentalness)}
+\NormalTok{instrumental_mean =}\StringTok{ }\KeywordTok{mean}\NormalTok{(instrumentalness)}
+
+\NormalTok{liveliness_n =}\StringTok{ }\KeywordTok{length}\NormalTok{(liveliness)}
+\NormalTok{liveliness_sd =}\StringTok{ }\KeywordTok{sd}\NormalTok{(liveliness)}
+\NormalTok{liveliness_mean =}\StringTok{ }\KeywordTok{mean}\NormalTok{(liveliness)}
+
+\NormalTok{z_score <-}\StringTok{ }\KeywordTok{qnorm}\NormalTok{(}\FloatTok{0.975}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+
+\NormalTok{mean_diff =}\StringTok{ }\NormalTok{instrumental_mean }\OperatorTok{-}\StringTok{ }\NormalTok{liveliness_mean}
+\NormalTok{pooled_variance_numerator_term1 =}\StringTok{ }\NormalTok{instrumental_sd}\OperatorTok{^}\DecValTok{2} \OperatorTok{*}\StringTok{ }\NormalTok{instrumental_n}\DecValTok{-1}
+\NormalTok{pooled_variance_numerator_term2 =}\StringTok{ }\NormalTok{liveliness_n}\OperatorTok{^}\DecValTok{2} \OperatorTok{*}\StringTok{ }\NormalTok{liveliness_n}\DecValTok{-1}
+\NormalTok{pooled_variance =}\StringTok{ }\NormalTok{pooled_variance_numerator_term1}\OperatorTok{+}
+\StringTok{  }\NormalTok{pooled_variance_numerator_term2}\OperatorTok{/}\NormalTok{(instrumental_n}\OperatorTok{+}\NormalTok{liveliness_n)}
+
+
+\NormalTok{upper_bound =}\StringTok{ }\NormalTok{mean_diff }\OperatorTok{+}\StringTok{ }\NormalTok{(z_score }\OperatorTok{*}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(}\DecValTok{1}\OperatorTok{/}\NormalTok{instrumental_n}\OperatorTok{+}\DecValTok{1}\OperatorTok{/}\NormalTok{liveliness_n))}
+\NormalTok{lower_bound =}\StringTok{ }\NormalTok{mean_diff }\OperatorTok{-}\StringTok{ }\NormalTok{(z_score }\OperatorTok{*}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(}\DecValTok{1}\OperatorTok{/}\NormalTok{instrumental_n}\OperatorTok{+}\DecValTok{1}\OperatorTok{/}\NormalTok{liveliness_n))}
+
+\NormalTok{mean_difference_interval =}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(lower_bound, upper_bound)}
+\NormalTok{mean_difference_interval}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   lower_bound upper_bound
+## 1  -0.1207261 -0.09013198
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mean_test <-}\StringTok{ }\NormalTok{instrumental_mean }\OperatorTok{-}\StringTok{ }\NormalTok{liveliness_mean}
+\NormalTok{mean_test}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -0.105429
+\end{verbatim}
+
+We can conclude there is a 95\% possibility that the difference between
+the means is between the lower bound -0.1207261 and -0.09013198. This is
+the case if group 1 is instrumentalness and group 2 is liveliness. This
+is true since the calculated difference between the mean falls in the
+range as it is 0.105429.
+
+\hypertarget{ratio-of-the-two-population-variances---valence-danceability}{%
+\subsubsection{Ratio of the two population variances - Valence \&
+Danceability}\label{ratio-of-the-two-population-variances---valence-danceability}}
+
+Valence is group 1, danceability is group 2. We calculated the values of
+n, sd and the standard deviation squared. After that we used the values
+of the confidence intervals and n to generate the values required for
+the formula. The upper bound and lower bound were then calculated.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{valence_n =}\StringTok{ }\KeywordTok{length}\NormalTok{(valence)}
+\NormalTok{valence_sd =}\StringTok{ }\KeywordTok{sd}\NormalTok{(valence)}
+\NormalTok{valence_s_squared =}\StringTok{ }\NormalTok{(valence_sd}\OperatorTok{^}\DecValTok{2}\NormalTok{)}
+
+\NormalTok{danceability_n =}\StringTok{ }\KeywordTok{length}\NormalTok{(danceability)}
+\NormalTok{danceability_sd =}\StringTok{ }\KeywordTok{sd}\NormalTok{(danceability)}
+\NormalTok{danceability_s_squared =}\StringTok{ }\NormalTok{(danceability_sd}\OperatorTok{^}\DecValTok{2}\NormalTok{)}
+
+\NormalTok{denom1 =}\StringTok{ }\KeywordTok{qf}\NormalTok{(}\FloatTok{0.025}\NormalTok{, valence_n}\DecValTok{-1}\NormalTok{, danceability_n}\DecValTok{-1}\NormalTok{)}
+\NormalTok{denom2 =}\StringTok{ }\KeywordTok{qf}\NormalTok{(}\FloatTok{0.975}\NormalTok{, valence_n}\DecValTok{-1}\NormalTok{, danceability_n}\DecValTok{-1}\NormalTok{)}
+
+\NormalTok{upper_bound =}\StringTok{ }\NormalTok{valence_s_squared}\OperatorTok{/}\NormalTok{(danceability_s_squared}\OperatorTok{*}\NormalTok{denom1)}
+\NormalTok{lower_bound =}\StringTok{ }\NormalTok{valence_s_squared}\OperatorTok{/}\NormalTok{(danceability_s_squared}\OperatorTok{*}\NormalTok{denom2)}
+
+\NormalTok{CI =}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(lower_bound, upper_bound)}
+\NormalTok{CI}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   lower_bound upper_bound
+## 1    2.527047    2.638788
+\end{verbatim}
+
+We can conclude there is a 95\% possibility that the difference in
+variance is between 2.527047 and 2.638788. This is only the case if
+valence is group 1 and danceability is group 2.
+
+\end{document}
